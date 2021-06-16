@@ -1,0 +1,10 @@
+
+original.png and image original_2.png
+Images are different:
+RGB countNonZero: [660, 327, 625]
+ORB Algorithm matches: 468
+
+original.png and image remix.png
+Images are different:
+RGB countNonZero: [264946, 251602, 457905]
+ORB Algorithm matches: 22
