@@ -9,5 +9,8 @@ D = librosa.amplitude_to_db(np.abs(librosa.stft(data)))
 librosa.display.specshow(D, x_axis='time', y_axis='linear', sr=fs, cmap='CMRmap')
 plt.xlabel('Time [s]')
 plt.ylabel('Frequency [Hz]')
+# remove other information
+plt.xticks([], [])
+plt.yticks([], [])
 plt.colorbar(format='%+2.0f dB')
 plt.show()
