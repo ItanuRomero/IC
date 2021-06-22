@@ -21,3 +21,5 @@ for counter in range(0, 3):
     plt.xticks([], [])
     plt.yticks([], [])
     plt.show()
+
+
