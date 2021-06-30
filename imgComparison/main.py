@@ -4,7 +4,7 @@ import cv2
 results_file = open('results.txt', 'a')
 
 # first_image, second_image = input("First image name: "), input("First image name: ")
-first_image, second_image = 'original.png', 'remix.png'
+first_image, second_image = 'remix.png', 'original.png'
 results_file.write(f'\n{first_image} and image {second_image}\n')
 first_image, second_image = cv2.imread(first_image), cv2.imread(second_image)
 

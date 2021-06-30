@@ -8,3 +8,37 @@ original.png and image remix.png
 Images are different:
 RGB countNonZero: [264946, 251602, 457905]
 ORB Algorithm matches: 22
+
+original.png and image remix.png
+Images are different:
+RGB countNonZero: [264946, 251602, 457905]
+ORB Algorithm matches: 22
+
+original.png and image original_2.png
+Images are different:
+RGB countNonZero: [660, 327, 625]
+ORB Algorithm matches: 468
+
+original.png and image live.png
+Images are different:
+RGB countNonZero: [418434, 309285, 409398]
+ORB Algorithm matches: 3
+
+remix.png and image live.png
+Images are different:
+RGB countNonZero: [669687, 411132, 476933]
+ORB Algorithm matches: 0
+
+remix.png and image remix.png
+Images are the same
+ORB Algorithm matches: 460
+
+remix.png and image original.png
+Images are different:
+RGB countNonZero: [658882, 373311, 432867]
+ORB Algorithm matches: 15
+
+remix.png and image original.png
+Images are different:
+RGB countNonZero: [658882, 373311, 432867]
+ORB Algorithm matches: 15
