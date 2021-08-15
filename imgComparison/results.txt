@@ -84,3 +84,28 @@ green_filtered2.png and image green_filtered4.png
 Images are different:
 RGB countNonZero: [0, 39014, 0]
 ORB Algorithm matches: 18
+
+yellow_filtered2.png and image yellow_filtered.png
+Images are different:
+RGB countNonZero: [3600, 3600, 3600]
+ORB Algorithm matches: 434
+
+yellow_filtered2.png and image yellow_filtered4.png
+Images are different:
+RGB countNonZero: [4988, 4988, 4988]
+ORB Algorithm matches: 434
+
+yellow_filtered2.png and image yellow_filtered4.png
+Images are different:
+RGB countNonZero: [4988, 4988, 4988]
+ORB Algorithm matches: 290
+
+yellow_filtered2.png and image yellow_filtered.png
+Images are different:
+RGB countNonZero: [3600, 3600, 3600]
+ORB Algorithm matches: 263
+
+yellow_filtered2.png and image yellow_filtered3.png
+Images are different:
+RGB countNonZero: [4229, 4229, 4229]
+ORB Algorithm matches: 276

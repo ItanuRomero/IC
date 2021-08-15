@@ -4,7 +4,7 @@ import cv2
 results_file = open('results.txt', 'a')
 
 # first_image, second_image = input("First image name: "), input("First image name: ")
-first_image, second_image = 'green_filtered2.png', 'green_filtered4.png'
+first_image, second_image = 'yellow_filtered2.png', 'yellow_filtered3.png'
 results_file.write(f'\n{first_image} and image {second_image}\n')
 first_image, second_image = cv2.imread(first_image), cv2.imread(second_image)
 
@@ -34,7 +34,7 @@ matcher = cv2.BFMatcher(cv2.NORM_HAMMING)
 matches = matcher.knnMatch(descriptor_one, descriptor_two, k=2)
 good_matches = []
 for match, n in matches:
-    if match.distance < 0.7* n.distance:
+    if match.distance < 0.5 * n.distance:
         good_matches.append([match])
 matches_image = cv2.drawMatchesKnn(first_image,
                                    keypoint_one,
