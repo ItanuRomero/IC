@@ -2,13 +2,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 import cv2
 # showing the original image
-img = plt.imread('remix.png')
+img = plt.imread('japaneseDenim.png')
 plt.xticks([], [])
 plt.yticks([], [])
 plt.imshow(img)
 plt.show()
 # showing only yellow lines
-try_yellow = cv2.imread('remix.png')
+try_yellow = cv2.imread('japaneseDenim.png')
 img_hsv = cv2.cvtColor(try_yellow, cv2.COLOR_BGR2HSV)
 # filter to white and yellow
 white = np.asarray([0, 0, 255])
