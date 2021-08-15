@@ -47,3 +47,8 @@ remix.png and image original.png
 Images are different:
 RGB countNonZero: [658882, 373311, 432867]
 ORB Algorithm matches: 15
+
+green_filtered.png and image yellow_filtered.png
+Images are different:
+RGB countNonZero: [1996, 50872, 1996]
+ORB Algorithm matches: 12
