@@ -1,14 +1,15 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import cv2
+img_name = 'remix'
 # showing the original image
-img = plt.imread('japaneseDenim.png')
+img = plt.imread(f'{img_name}.png')
 plt.xticks([], [])
 plt.yticks([], [])
 plt.imshow(img)
 plt.show()
 # showing only yellow lines
-try_yellow = cv2.imread('japaneseDenim.png')
+try_yellow = cv2.imread(f'{img_name}.png')
 img_hsv = cv2.cvtColor(try_yellow, cv2.COLOR_BGR2HSV)
 # filter to white and yellow
 white = np.asarray([0, 0, 255])
@@ -16,7 +17,7 @@ yellow = np.asarray([30, 255, 255])
 
 mask = cv2.inRange(img_hsv, white, yellow)
 plt.imshow(mask, cmap='gray')
-plt.savefig('yellow_filtered.png')
+plt.savefig(f'yellow_{img_name}.png')
 plt.show()
 
 for counter in range(0, 3):
@@ -33,7 +34,7 @@ for counter in range(0, 3):
         plt.imshow(img_separated, cmap='gray')
         plt.xticks([], [])
         plt.yticks([], [])
-        plt.savefig('green_filtered.png')
+        plt.savefig(f'green_{img_name}.png')
     else:
         # blue only
         img_separated[:, :, [0, 1]] = 0

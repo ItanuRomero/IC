@@ -109,3 +109,57 @@ yellow_filtered2.png and image yellow_filtered3.png
 Images are different:
 RGB countNonZero: [4229, 4229, 4229]
 ORB Algorithm matches: 276
+
+yellow_original.png and image yellow_live.png
+Images are different:
+RGB countNonZero: [4229, 4229, 4229]
+ORB Algorithm good matches: 276
+ORB Algorithm matches: 434
+
+green_original.png and image green_live.png
+Images are different:
+RGB countNonZero: [0, 31309, 0]
+ORB Algorithm good matches: 13
+ORB Algorithm matches: 330
+
+yellow_original.png and image yellow_remix.png
+Images are different:
+RGB countNonZero: [3600, 3600, 3600]
+ORB Algorithm good matches: 263
+ORB Algorithm matches: 434
+
+green_original.png and image green_remix.png
+Images are different:
+RGB countNonZero: [0, 24769, 0]
+ORB Algorithm good matches: 9
+ORB Algorithm matches: 330
+
+yellow_original.png and image yellow_japaneseDenim.png
+Images are different:
+RGB countNonZero: [4988, 4988, 4988]
+ORB Algorithm good matches: 290
+ORB Algorithm matches: 434
+
+green_original.png and image green_japaneseDenim.png
+Images are different:
+RGB countNonZero: [0, 39014, 0]
+ORB Algorithm good matches: 9
+ORB Algorithm matches: 330
+
+original.png and image japaneseDenim.png
+Images are different:
+RGB countNonZero: [603789, 350313, 282412]
+ORB Algorithm good matches: 0
+ORB Algorithm matches: 476
+
+original.png and image live.png
+Images are different:
+RGB countNonZero: [418434, 309285, 409398]
+ORB Algorithm good matches: 0
+ORB Algorithm matches: 476
+
+original.png and image remix.png
+Images are different:
+RGB countNonZero: [264946, 251602, 457905]
+ORB Algorithm good matches: 6
+ORB Algorithm matches: 476

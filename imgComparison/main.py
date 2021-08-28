@@ -1,11 +1,31 @@
 import cv2
+import csv
 
-# first part. Report rgb from the file
-results_file = open('results.txt', 'a')
 
+def is_empty(filename='results.csv'):
+    with open(filename, 'r') as results_csv:
+        csv_dict = [row for row in csv.DictReader(results_csv)]
+        if len(csv_dict) == 0:
+            write_file_head()
+
+
+def write_file_head():
+    with open('results.csv', 'w') as results_csv:
+        writer = csv.writer(results_csv)
+        writer.writerow(['Names', 'AreEqual', 'CountNonZero', 'GoodMatches', 'Matches'])
+
+
+def write_results(data=[None, None, None, None, None]):
+    with open('results.csv', 'a') as results_csv:
+        writer = csv.writer(results_csv)
+        writer.writerow(data)
+
+
+is_empty()
+result_data = list()
 # first_image, second_image = input("First image name: "), input("First image name: ")
-first_image, second_image = 'yellow_filtered2.png', 'yellow_filtered3.png'
-results_file.write(f'\n{first_image} and image {second_image}\n')
+first_image, second_image = 'original.png', 'original.png'
+result_data.append(f'{first_image} - {second_image}')
 first_image, second_image = cv2.imread(first_image), cv2.imread(second_image)
 
 diff = cv2.subtract(first_image, second_image)
@@ -20,10 +40,11 @@ rgb = [
     cv2.countNonZero(b)
 ]
 if diff.any():
-    message = f'Images are different:\nRGB countNonZero: {rgb}\n'
+    result_data.append(False)
+    result_data.append(rgb)
 else:
-    message = 'Images are the same\n'
-print(message)
+    result_data.append(True)
+    result_data.append(rgb)
 
 # second part. Checking similarities with ORB algorithm
 orb = cv2.ORB_create()
@@ -45,6 +66,6 @@ matches_image = cv2.drawMatchesKnn(first_image,
 cv2.imshow("matches image", matches_image)
 cv2.imwrite('matches_image.png', matches_image)
 cv2.waitKey(1000)
-message += f'ORB Algorithm matches: {len(good_matches)}\n'
-results_file.write(message)
-results_file.close()
+result_data.append(len(good_matches))
+result_data.append(len(matches))
+write_results(result_data)
