@@ -1,6 +1,7 @@
 import librosa.display
 import matplotlib.pyplot as plt
 import numpy as np
+from PIL import Image
 
 
 def create_spectrum(file_name):
@@ -29,4 +30,20 @@ def show_spectrum_image():
     plt.show()
 
 
-create_spectrum(file_name='cardio.mp3')
+def remove_all_black_pixels(file_name):
+    img = Image.open(file_name)
+    img = img.convert("RGBA")
+    datas = img.getdata()
+    new_data = []
+    for item in datas:
+        if item[0] == 0 and item[1] == 0 and item[2] == 0:
+            new_data.append((0, 0, 0, 0))
+        else:
+            new_data.append(item)
+    img.putdata(new_data)
+    img.save(f'{file_name}_without_black_pixels.png')
+
+
+filename = input('Type file name: ')
+create_spectrum(file_name=f'../Music/eletronic/{filename}.mp3')
+remove_all_black_pixels(file_name=f'../Music/eletronic/{filename}.png')
