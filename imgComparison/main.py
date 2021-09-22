@@ -23,8 +23,8 @@ def write_results(data=[None, None, None, None, None]):
 
 is_empty()
 result_data = list()
-# first_image, second_image = input("First image name: "), input("First image name: ")
-first_image, second_image = 'original.png', 'original.png'
+first_image, second_image = input("First image name: "), input("Second image name: ")
+first_image, second_image = f'../Spectrum/eletronic/{first_image}.png', f'../Spectrum/eletronic/{second_image}.png'
 result_data.append(f'{first_image} - {second_image}')
 first_image, second_image = cv2.imread(first_image), cv2.imread(second_image)
 

@@ -1,2 +1,5 @@
 Names,AreEqual,CountNonZero,GoodMatches,Matches
 original.png - original.png,True,"[0, 0, 0]",476,476
+../Spectrum/eletronic/JekK_-_You_and_Me.png - ../Spectrum/eletronic/JekK_-_You_and_Me.png_without_black_pixels.png,True,"[0, 0, 0]",446,446
+../Spectrum/eletronic/JekK_-_You_and_Me.png - ../Spectrum/eletronic/Kuzinmuzin_-_Sax_Is_My_Cardio__Remix_.png,False,"[133574, 127516, 130342]",0,446
+../Spectrum/eletronic/JekK_-_You_and_Me.png_without_black_pixels.png - ../Spectrum/eletronic/Kuzinmuzin_-_Sax_Is_My_Cardio__Remix_.png,False,"[133574, 127516, 130342]",0,446
