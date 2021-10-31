@@ -22,9 +22,9 @@ def write_results(data=[None, None, None, None, None]):
         writer.writerow(data)
 
 
-def analyze_and_save_results(first_image_path, second_image_path):
+def analyze_and_save_results(first_image, second_image):
     result_data = list()
-    first_image, second_image = f'../Spectrum/{first_image_path}', f'../Spectrum/{second_image_path}'
+    first_image, second_image = f'../Spectrum/{first_image}', f'../Spectrum/{second_image}'
     result_data.append(f'{first_image.split("Spectrum/")[-1]} - {second_image.split("Spectrum/")[-1]}')
     first_image, second_image = cv2.imread(first_image), cv2.imread(second_image)
 
@@ -92,11 +92,11 @@ for path in music_gender_paths:
     all_paths.append(files_paths)
 for directory in all_paths:
     for other_directory in all_paths:
-        for first_image in directory:
-            for second_image in other_directory:
-                if first_image.split('/')[0] != second_image.split('/')[0]:
-                    print(first_image, second_image)
+        for first_image_path in directory:
+            for second_image_path in other_directory:
+                if first_image_path.split('/')[0] != second_image_path.split('/')[0]:
+                    print(first_image_path, second_image_path)
                     try:
-                        analyze_and_save_results(first_image, second_image)
+                        analyze_and_save_results(first_image_path, second_image_path)
                     except Exception as err:
                         print(err)
