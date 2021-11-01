@@ -1,5 +1,6 @@
 import cv2
 import csv
+from os import listdir
 
 
 def is_empty(filename='results.csv'):
@@ -81,9 +82,6 @@ def analyze_and_save_results(first_image, second_image):
 
 
 is_empty()
-from os import listdir
-from os.path import isfile, join
-import numpy
 
 all_paths = list()
 music_gender_paths = [path for path in listdir('../Spectrum')]
