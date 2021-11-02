@@ -26,7 +26,9 @@ def write_results(data=[None, None, None, None, None]):
 def analyze_and_save_results(first_image, second_image):
     result_data = list()
     first_image, second_image = f'../Spectrum/{first_image}', f'../Spectrum/{second_image}'
-    result_data.append(f'{first_image.split("Spectrum/")[-1]} - {second_image.split("Spectrum/")[-1]}')
+    first_name = first_image.split('Spectrum/')[-1].split('_')[0]
+    second_name = second_image.split('Spectrum/')[-1].split('_')[0]
+    result_data.append(f'{first_name} - {second_name}')
     first_image, second_image = cv2.imread(first_image), cv2.imread(second_image)
 
     diff = cv2.subtract(first_image, second_image)
@@ -34,7 +36,7 @@ def analyze_and_save_results(first_image, second_image):
     diff_absolute = cv2.absdiff(first_image, second_image)
 
     cv2.imshow('diferenças encontradas', diff)
-    cv2.waitKey(1000)
+    cv2.waitKey(100)
     cv2.imwrite('result.png', diff)
     cv2.imwrite('result_reverse.png', diff_reverse)
     cv2.imwrite('result_absolute.png', diff_absolute)
@@ -92,9 +94,8 @@ for directory in all_paths:
     for other_directory in all_paths:
         for first_image_path in directory:
             for second_image_path in other_directory:
-                if first_image_path.split('/')[0] != second_image_path.split('/')[0]:
-                    print(first_image_path, second_image_path)
-                    try:
-                        analyze_and_save_results(first_image_path, second_image_path)
-                    except Exception as err:
-                        print(err)
+                print(first_image_path, second_image_path)
+                try:
+                    analyze_and_save_results(first_image_path, second_image_path)
+                except Exception as err:
+                    print(err)
