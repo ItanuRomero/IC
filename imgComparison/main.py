@@ -2,8 +2,17 @@ import cv2
 import csv
 from os import listdir
 
+FILENAME = 'results.csv'
+RESULTS_HEAD = [
+    'FirstImage', 'SecondImage',
+    'NonZeroR', 'NonZeroG', 'NonZeroB',
+    'Matches0.5', 'Matches0.6', 'Matches0.7',
+    'Matches0.8', 'Matches0.9', 'Matches1.0',
+    'Matches'
+]
 
-def is_empty(filename='results.csv'):
+
+def is_empty(filename: str = FILENAME):
     with open(filename, 'r') as results_csv:
         csv_dict = [row for row in csv.DictReader(results_csv)]
         if len(csv_dict) == 0:
@@ -11,49 +20,38 @@ def is_empty(filename='results.csv'):
 
 
 def write_file_head():
-    with open('results.csv', 'w', newline='') as results_csv:
-        writer = csv.writer(results_csv)
-        writer.writerow(['Names', 'AreEqual', 'CountNonZero',
-                         'CountNonZeroReverse', 'CountNonZeroAbsolute', 'GoodMatchesDistance0.5To1', 'Matches'])
+    with open('results.csv', 'w', newline='') as results_in_csv:
+        writer = csv.writer(results_in_csv)
+        writer.writerow(RESULTS_HEAD)
 
 
-def write_results(data=[None, None, None, None, None]):
-    with open('results.csv', 'a', newline='') as results_csv:
-        writer = csv.writer(results_csv)
+def write_results(data=RESULTS_HEAD):
+    with open('results.csv', 'a', newline='') as results_in_csv:
+        writer = csv.writer(results_in_csv)
         writer.writerow(data)
 
 
-def analyze_and_save_results(first_image, second_image):
-    result_data = list()
+def analyze_and_save_results(first_image: str, second_image: str, flag_show_images=False):
+    result_data = []
+    names = [
+        first_image.split('_')[0].replace('.png', ''),
+        second_image.split('_')[0].replace('.png', '')
+    ]
+    for name in names:
+        result_data.append(name)
     first_image, second_image = f'../Spectrum/{first_image}', f'../Spectrum/{second_image}'
-    first_name = first_image.split('Spectrum/')[-1].split('_')[0]
-    second_name = second_image.split('Spectrum/')[-1].split('_')[0]
-    result_data.append(f'{first_name} - {second_name}')
     first_image, second_image = cv2.imread(first_image), cv2.imread(second_image)
-
-    diff = cv2.subtract(first_image, second_image)
-    diff_reverse = cv2.subtract(second_image, first_image)
-    diff_absolute = cv2.absdiff(first_image, second_image)
-
-    cv2.imshow('diferenças encontradas', diff)
-    cv2.waitKey(100)
-    cv2.imwrite('result.png', diff)
-    cv2.imwrite('result_reverse.png', diff_reverse)
-    cv2.imwrite('result_absolute.png', diff_absolute)
-
-    if diff.any():
-        result_data.append(False)
-    else:
-        result_data.append(True)
-    diffs = [diff, diff_reverse, diff_absolute]
-    for d in diffs:
-        b, g, r = cv2.split(d)
-        rgb = [
-            cv2.countNonZero(r),
-            cv2.countNonZero(g),
-            cv2.countNonZero(b)
-        ]
-        result_data.append(rgb)
+    # first part, getting the absolute difference between the files and split by rgb
+    absolute_diff = cv2.absdiff(first_image, second_image)
+    cv2.imwrite('result_absolute.png', absolute_diff)
+    b, g, r = cv2.split(absolute_diff)
+    rgb = [
+        cv2.countNonZero(r),
+        cv2.countNonZero(g),
+        cv2.countNonZero(b)
+    ]
+    for color in rgb:
+        result_data.append(color)
 
     # second part. Checking similarities with ORB algorithm
     orb = cv2.ORB_create()
@@ -62,40 +60,51 @@ def analyze_and_save_results(first_image, second_image):
 
     matcher = cv2.BFMatcher(cv2.NORM_HAMMING)
     matches = matcher.knnMatch(descriptor_one, descriptor_two, k=2)
-    good_matches_list = list()
+
+    good_matches_list = []
     for distance in range(5, 11):
         good_matches = []
         for match, n in matches:
             if match.distance < (distance / 10) * n.distance:
                 good_matches.append([match])
-        matches_image = cv2.drawMatchesKnn(first_image,
-                                           keypoint_one,
-                                           second_image,
-                                           keypoint_two,
-                                           good_matches,
-                                           None)
-        cv2.imshow("matches image", matches_image)
-        cv2.imwrite(f'matches_image_{distance}.png', matches_image)
-        cv2.waitKey(1000)
+        if flag_show_images:
+            matches_image = cv2.drawMatchesKnn(first_image,
+                                               keypoint_one,
+                                               second_image,
+                                               keypoint_two,
+                                               good_matches,
+                                               None)
+            cv2.imwrite(f'matches_image_{distance}.png', matches_image)
         good_matches_list.append(len(good_matches))
-    result_data.append(good_matches_list)
+    for matches_distance in good_matches_list:
+        result_data.append(matches_distance)
     result_data.append(len(matches))
     write_results(result_data)
 
 
-is_empty()
+try:
+    is_empty()
+except FileNotFoundError:
+    with open(FILENAME, 'x') as _:
+        print("File hasn't been created, until now.")
+    is_empty()
 
-all_paths = list()
+all_paths = []
+all_comparisons = []
 music_gender_paths = [path for path in listdir('../Spectrum')]
 for path in music_gender_paths:
     files_paths = [f'{path}/{file}' for file in listdir(f'../Spectrum/{path}')]
     all_paths.append(files_paths)
 for directory in all_paths:
-    for other_directory in all_paths:
+    for second_directory in all_paths:
         for first_image_path in directory:
-            for second_image_path in other_directory:
-                print(first_image_path, second_image_path)
-                try:
-                    analyze_and_save_results(first_image_path, second_image_path)
-                except Exception as err:
-                    print(err)
+            for second_image_path in second_directory:
+                if f'{first_image_path} and {second_image_path}' not in all_comparisons \
+                        and f'{second_image_path} and {first_image_path}' not in all_comparisons \
+                        and first_image_path != second_image_path:
+                    try:
+                        analyze_and_save_results(first_image_path, second_image_path)
+                    except Exception as err:
+                        print(err)
+                        print(first_image_path, second_image_path)
+                    all_comparisons.append(f'{first_image_path} and {second_image_path}')
