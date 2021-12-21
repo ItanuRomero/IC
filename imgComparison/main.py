@@ -41,7 +41,7 @@ def analyze_and_save_results(first_image: str, second_image: str, flag_show_imag
         result_data.append(name)
     first_image, second_image = f'../Spectrum/{first_image}', f'../Spectrum/{second_image}'
     first_image, second_image = cv2.imread(first_image), cv2.imread(second_image)
-    # first part, getting the absolute difference between the files and split by rgb
+    # first part. Getting the absolute difference between the files and split by rgb
     absolute_diff = cv2.absdiff(first_image, second_image)
     cv2.imwrite('result_absolute.png', absolute_diff)
     b, g, r = cv2.split(absolute_diff)
